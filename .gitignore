@@ -9,7 +9,6 @@ out
 gen
 .gitignore
 .idea/
-pom.xml
-src/
+
 target/
-weatherRK.iml
+
