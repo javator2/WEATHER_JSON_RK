@@ -5,19 +5,39 @@ import org.json.JSONObject;
 import pl.sdacademy.weather.model.Weather;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Iterator;
 
 public class Main {
     public static void main(String[] args) {
         WeatherService weatherService = new WeatherService("http://api.apixu.com/v1/current.json", "a4f5affb73e04cddbf973133181808");
 
+        try {
+            if(!Files.isDirectory(Paths.get("images")))
+                Files.createDirectory(Paths.get("images"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Weather cityWeather = weatherService.getCityWeather("Szpital");
+        System.out.println(cityWeather);
+        String url = "http://maps.googleapis.com/maps/api/staticmap?center="+cityWeather.getLat() + ","+cityWeather.getLon()+"&size=400x400&zoom=12";
+        try (InputStream input = new URL(url).openStream()) {
 
-        System.out.println(weatherService.getCityWeather("Torun"));
+            Files.deleteIfExists(Paths.get("images/"+cityWeather.getCity()+".jpg"));
+            Files.copy(input, Paths.get("images/"+cityWeather.getCity()+".jpg"));
+        } catch (MalformedURLException e1) {
+            e1.printStackTrace();
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+    }
 
-
-
+}
 
 
         //String url = "http://api.apixu.com/v1/current.json?key=a4f5affb73e04cddbf973133181808&q=Torun&lang=pl";
@@ -40,5 +60,5 @@ public class Main {
                 System.out.println(k);
             }
         */
-    }
-}
+
+

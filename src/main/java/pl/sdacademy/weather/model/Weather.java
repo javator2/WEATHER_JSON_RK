@@ -6,6 +6,8 @@ public class Weather {
     private double temp_c;
     private double feelslike_c;
     private String conditionText;
+    private double lat;
+    private double lon;
 
     public Weather() {
     }
@@ -50,6 +52,22 @@ public class Weather {
         this.conditionText = conditionText;
     }
 
+    public double getLat() {
+        return lat;
+    }
+
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
+
+    public double getLon() {
+        return lon;
+    }
+
+    public void setLon(double lon) {
+        this.lon = lon;
+    }
+
     @Override
     public String toString() {
         return "Weather{" +
@@ -58,6 +76,8 @@ public class Weather {
                 ", temp_c=" + temp_c +
                 ", feelslike_c=" + feelslike_c +
                 ", conditionText='" + conditionText + '\'' +
+                ", lat=" + lat +
+                ", lon=" + lon +
                 '}';
     }
 }

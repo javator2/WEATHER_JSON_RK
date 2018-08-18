@@ -28,6 +28,8 @@ public class WeatherService {
         weather.setConditionText(json.getJSONObject("current").getJSONObject("condition").getString("text"));
         weather.setTemp_c(json.getJSONObject("current").getDouble("temp_c"));
         weather.setFeelslike_c(json.getJSONObject("current").getDouble("feelslike_c"));
+        weather.setLat(json.getJSONObject("location").getDouble("lat"));
+        weather.setLon(json.getJSONObject("location").getDouble("lon"));
         return weather;
     }
 }
